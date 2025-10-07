@@ -1,14 +1,17 @@
-#  BudAi
-BudAi es una aplicación que permite manejar las finanzas de las personas de una manera rápida, sencilla y útil. Con su integración de AI, los usuarios pueden categorizar más efectivamente sus gastos e ingresos. Ahorrando tiempo y pereza de llevar las cuentas. Manejando entradas por voz, la AI te ayuda a ubicarlo en la tabla y lugar que desees.
+# Ryuu_Fit
 
-#### Problema que resuelve: 
-Las personas no llevan control de sus gastos porque es tedioso registrar cada compra.
+Se trata de una aplicación móvil diseñada para ofrecer planes personalizados de entrenamiento y
+alimentación a cada usuario. El proceso comienza con un breve cuestionario en el que se solicitan
+datos básicos como complexión física, altura, edad y nivel de actividad diaria.
+Con esta información, la app analiza el perfil del usuario y genera automáticamente rutinas
+de ejercicio adaptadas, junto con recomendaciones nutricionales ajustadas a sus objetivos,
+ya sea mejorar la condición física, perder peso o ganar masa muscular. Todo el contenido se presenta
+de manera clara y sencilla, lo que convierte a la aplicación en una herramienta práctica para
+mantener hábitos saludables desde casa o cualquier lugar, sin necesidad de contar con equipos
+especializados.
 
-####  Funcionalidad clave con IA:
-- Entrada de datos por voz o foto de facturas → la IA detecta monto, categoría y fecha automáticamente.
-- Sugerencias de ahorro personalizadas usando patrones de gasto.
-- Chatbot financiero para consultas rápidas: "¿Cuánto gasté en transporte este mes?"
- Extra: Puede funcionar offline y sincronizarse cuando haya internet.
+### Author: Julian Fernando perdomo
+### Co-Authores: Osman Pajaro, Johan Ricaurte
 
 ## Referencias
 
