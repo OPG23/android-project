@@ -114,7 +114,7 @@ fun RutinaScreen(
                     )
                 ) {
                     Text(
-                        text = "Salir",
+                        text = "sair",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal
                     )

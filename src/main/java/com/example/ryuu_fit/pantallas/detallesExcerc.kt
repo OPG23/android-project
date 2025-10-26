@@ -26,7 +26,7 @@ fun detallesEjercicio(
     dia: String = "Jueves",
     ejercicio: String = "Abdominales en bicicleta",
     repeticiones: String = "3x20",
-    imagen: Int = R.drawable.abd_bici // abd_bici
+    imagen: Int = R.drawable.ic_launcher_foreground // abd_bici
 ) {
     // Estado de la serie actual
     var serie by remember { mutableStateOf(1) }
