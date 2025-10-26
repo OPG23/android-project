@@ -22,11 +22,11 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun detallesEjercicio(
-    navController: NavController? = null, // Hacemos opcional para que funcione el Preview
+    navController: NavController? = null, //Hacemos opcional para que funcione el Preview
     dia: String = "Jueves",
     ejercicio: String = "Abdominales en bicicleta",
     repeticiones: String = "3x20",
-    imagen: Int = R.drawable.abd_bici // abd_bici
+    imagen: Int = R.drawable.abd_bici //abd_bici
 ) {
     // Estado de la serie actual
     var serie by remember { mutableStateOf(1) }
