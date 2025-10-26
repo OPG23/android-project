@@ -68,7 +68,7 @@ fun RutinaScreen(
             ) {
                 val meals = listOf(
                     "Desayuno",
-                    "Meriena",
+                    "Merienda",
                     "Almuerzo",
                     "Merienda",
                     "Cena",
@@ -114,7 +114,7 @@ fun RutinaScreen(
                     )
                 ) {
                     Text(
-                        text = "sair",
+                        text = "Salir",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal
                     )

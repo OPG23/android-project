@@ -76,7 +76,7 @@ fun MenuScreen(navController: NavController) {
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.drawable.rutina_semanal),
                         contentDescription = "Rutina semanal",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -112,7 +112,7 @@ fun MenuScreen(navController: NavController) {
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.drawable.plan_alimenticio),
                         contentDescription = "Plan alimenticio",
                         modifier = Modifier.fillMaxSize()
                     )
