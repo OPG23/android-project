@@ -26,7 +26,7 @@ fun detallesEjercicio(
     dia: String = "Jueves",
     ejercicio: String = "Abdominales en bicicleta",
     repeticiones: String = "3x20",
-    imagen: Int = R.drawable.ic_launcher_foreground // abd_bici
+    imagen: Int = R.drawable.abd_bici // abd_bici
 ) {
     // Estado de la serie actual
     var serie by remember { mutableStateOf(1) }
@@ -88,7 +88,7 @@ fun detallesEjercicio(
 
             // Imagen del ejercicio
             Image(
-                painter = painterResource(id = imagen),
+                painter =  painterResource(id = imagen), // painter =  painterResource(id = imagen)
                 contentDescription = "Imagen del ejercicio",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -151,6 +151,6 @@ fun DetallesEjercicioPreview() {
         dia = "Jueves",
         ejercicio = "Abdominales en bicicleta",
         repeticiones = "3x20",
-        imagen = R.drawable.ic_launcher_foreground // abd_bici
+        imagen = R.drawable.abd_bici // abd_bici
     )
 }
