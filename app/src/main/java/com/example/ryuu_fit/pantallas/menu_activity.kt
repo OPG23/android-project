@@ -64,7 +64,7 @@ fun MenuScreen(navController: NavController) {
             // Botón Rutina semanal
             Card(
                 onClick = {
-                    navController.navigate(AppPantallas.Rutina.ruta)
+                    navController.navigate(AppPantallas.TrainingWeek.ruta)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,7 +99,8 @@ fun MenuScreen(navController: NavController) {
             // Botón Plan alimenticio
             Card(
                 onClick = {
-                    // 🔹 Cuando crees la pantalla de Plan Alimenticio, la enlazaremos aquí
+                    navController.navigate(AppPantallas.Nutricion.ruta)
+                    // Cuando crees la pantalla de Plan Alimenticio, la enlazaremos aquí
                     // navController.navigate(AppPantallas.PlanAlimenticio.ruta)
                 },
                 modifier = Modifier

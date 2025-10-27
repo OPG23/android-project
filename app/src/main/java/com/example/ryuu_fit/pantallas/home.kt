@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -31,7 +30,7 @@ fun HomeScreen(
             NavigationBar(containerColor = Color.White) {
                 NavigationBarItem(
                     selected = true,
-                    onClick = { navController.navigate(AppPantallas.Rutina.ruta)
+                    onClick = { navController.navigate("") //AppPantallas.Nutricion.ruta
                     },
                     icon = {
                         Image(
@@ -44,7 +43,7 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("detallesTr") },
+                    onClick = { navController.navigate("trainingWeek") }, // detallesTr
                     icon = {
                         Image(
                             painter = painterResource(id = R.drawable.ic_rutinas), //ic_rutinas
@@ -56,7 +55,7 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("detallesEx")},
+                    onClick = { navController.navigate("")}, //detallesEx
                     icon = {
                         Image(
                             painter = painterResource(id = R.drawable.ic_notificaciones),//ic_notificaciones
@@ -68,7 +67,7 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("trainingWeek") },
+                    onClick = { navController.navigate("menu") }, //trainingWeek
                     icon = {
                         Image(
                             painter = painterResource(id = R.drawable.ic_perfil), //ic_perfil
@@ -151,9 +150,9 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                OptionCard(R.drawable.ic_actuinfo, "Actualización de información")
-                OptionCard(R.drawable.ic_opcidietas, "Opciones de dietas")
-                Button(onClick = {navController.navigate(AppPantallas.Menu.ruta)}) { }
+                OptionCard(R.drawable.ic_actuinfo, "Actualización de información", onClick = {navController.navigate(AppPantallas.Test.ruta)} ) //test
+                OptionCard(R.drawable.ic_opcidietas, "Opciones de dietas", onClick = {navController.navigate(AppPantallas.Nutricion.ruta)})
+                //Button(onClick = {navController.navigate(AppPantallas.Menu.ruta)}) { }
             }
         }
     }
@@ -196,7 +195,7 @@ fun CategoryIcon(iconRes: Int, label: String) {
 }
 
 @Composable
-fun OptionCard(imageRes: Int, text: String) {
+fun OptionCard(imageRes: Int, text: String, onClick: (navController: NavController) -> Unit) {
     Column(
         modifier = Modifier
             .width(150.dp)
