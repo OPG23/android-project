@@ -22,6 +22,13 @@ import com.example.ryuu_fit.pantallas.trainingWeek
 import com.example.ryuu_fit.pantallas.Nutricion
 import com.example.ryuu_fit.pantallas.MenuScreen
 
+//Rutas Jhon Quenan
+import com.example.ryuu_fit.pantallas.DietaDesayuno
+import com.example.ryuu_fit.pantallas.DietaMerienda
+import com.example.ryuu_fit.pantallas.DietaAlmuerzo
+import com.example.ryuu_fit.pantallas.DietaCena
+import com.example.ryuu_fit.pantallas.DietaSnack
+
 
 //import com.example.ryuu_fit.pantallas.(nombre de la funcion)
 
@@ -57,7 +64,7 @@ fun NavegacionApp() {
             trainingWeek(navController)
         }
 
-
+/*
         //Partes Julian
         composable(route = AppPantallas.Nutricion.ruta) {
             Nutricion(
@@ -66,9 +73,33 @@ fun NavegacionApp() {
                 }
             )
         }
-
-        composable(route = AppPantallas.Menu.ruta) {
+*/
+     /*composable(route = AppPantallas.Menu.ruta) {
             MenuScreen(navController)
+        }*/
+
+        // Jhon quenan }
+        composable(route = AppPantallas.Nutricion.ruta) {
+            Nutricion(
+                onSalirClick = { navController.navigateUp() },
+                onNavigateTo = { ruta -> navController.navigate(ruta) }
+            )
+        }
+
+        composable(route = "dieta_desayuno") {
+            DietaDesayuno(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_merienda") {
+            DietaMerienda(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_almuerzo") {
+            DietaAlmuerzo(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_cena") {
+            DietaCena(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_snack") {
+            DietaSnack(onBack = { navController.popBackStack() })
         }
 
 
