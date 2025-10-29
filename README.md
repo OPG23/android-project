@@ -10,8 +10,8 @@ de manera clara y sencilla, lo que convierte a la aplicación en una herramienta
 mantener hábitos saludables desde casa o cualquier lugar, sin necesidad de contar con equipos
 especializados.
 
-### Author: Julian Fernando perdomo
-### Co-Authores: Osman Pajaro, Johan Ricaurte
+### Author: Julian Fernando Perdomo
+### Co-Authores: Osman Pajaro, Johan Ricaurte, Jhon Quenan 
 
 ## Referencias
 
