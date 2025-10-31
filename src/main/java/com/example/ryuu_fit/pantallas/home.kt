@@ -17,26 +17,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
+import com.example.ryuu_fit.ui.theme.RYUU_FITTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController,
-
+    navController: NavController
 ) {
     Scaffold(
         bottomBar = {
             NavigationBar(containerColor = Color.White) {
                 NavigationBarItem(
                     selected = true,
-                    onClick = { navController.navigate(AppPantallas.Rutina.ruta)
-                    },
+                    onClick = { navController.navigate(AppPantallas.Home.ruta) },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_home), // ic_home
-                            contentDescription = "Home",
+                            painter = painterResource(id = R.drawable.ic_home),
+                            contentDescription = "Inicio",
                             modifier = Modifier.size(24.dp)
                         )
                     },
@@ -44,10 +44,10 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("detallesTr") },
+                    onClick = { navController.navigate(AppPantallas.Rutina.ruta) },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_rutinas), //ic_rutinas
+                            painter = painterResource(id = R.drawable.ic_rutinas),
                             contentDescription = "Rutinas",
                             modifier = Modifier.size(24.dp)
                         )
@@ -56,11 +56,11 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("detallesEx")},
+                    onClick = { navController.navigate(AppPantallas.DetallesEx.ruta) },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_notificaciones),//ic_notificaciones
-                            contentDescription = "Notificaciones",
+                            painter = painterResource(id = R.drawable.ic_notificaciones),
+                            contentDescription = "Alertas",
                             modifier = Modifier.size(24.dp)
                         )
                     },
@@ -68,10 +68,10 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("trainingWeek") },
+                    onClick = { navController.navigate(AppPantallas.TrainingWeek.ruta) },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_perfil), //ic_perfil
+                            painter = painterResource(id = R.drawable.ic_perfil),
                             contentDescription = "Perfil",
                             modifier = Modifier.size(24.dp)
                         )
@@ -89,7 +89,7 @@ fun HomeScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Barra de búsqueda
+            // 🔍 Barra de búsqueda
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
@@ -111,7 +111,7 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Chips
+            // 🔸 Filtros
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
@@ -123,49 +123,57 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Logo
+            // 🐉 Logo principal
             Image(
-
                 painter = painterResource(id = R.drawable.ryuu_fit_image_bgrm),
-                contentDescription = "Logo",
+                contentDescription = "Logo Ryuu-Fit",
                 modifier = Modifier.size(180.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Fila de categorías
+            // 🏋️ Categorías principales
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                CategoryIcon(R.drawable.ic_cardio, "Cardio",)
-                CategoryIcon(R.drawable.ic_fuerza, "Fuerza")
-                CategoryIcon(R.drawable.ic_resistencia, "Resistencia")
-                CategoryIcon(R.drawable.ic_elasticidad, "Elasticidad")
+                CategoryIcon(
+                    iconRes = R.drawable.ic_cardio,
+                    label = "Cardio",
+                    onClick = { navController.navigate(AppPantallas.Cardio.ruta) }
+                )
+                CategoryIcon(
+                    iconRes = R.drawable.ic_fuerza,
+                    label = "Fuerza",
+                    onClick = { navController.navigate(AppPantallas.Fuerza.ruta) }
+                )
+                CategoryIcon(
+                    iconRes = R.drawable.ic_resistencia,
+                    label = "Resistencia",
+                    onClick = { navController.navigate(AppPantallas.Resistencia.ruta) }
+                )
+                CategoryIcon(
+                    iconRes = R.drawable.ic_elasticidad,
+                    label = "Elasticidad",
+                    onClick = { navController.navigate(AppPantallas.Elasticidad.ruta) }
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Opciones con imágenes
+            // ⚙️ Opciones adicionales
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 OptionCard(R.drawable.ic_actuinfo, "Actualización de información")
                 OptionCard(R.drawable.ic_opcidietas, "Opciones de dietas")
-                Button(onClick = {navController.navigate(AppPantallas.Menu.ruta)}) { Text("P5", color = Color.White)}
-                /*
-                Button(onClick = {navController.navigate(AppPantallas.Rutina.ruta)}) { Text("P6", color = Color.White)}
-                Button(onClick = {navController.navigate(AppPantallas.DetallesTr.ruta)}) { Text("P7", color = Color.White)}
-                Button(onClick = {navController.navigate(AppPantallas.DetallesEx.ruta)}) { Text("P8", color = Color.White)}
-                Button(onClick = {navController.navigate(AppPantallas.Rutina.ruta)}) { Text("P9", color = Color.White)}
-                */
-
             }
         }
     }
 }
 
+// 🔹 Composable de chips de filtro
 @Composable
 fun FilterChip(text: String, onClick: () -> Unit = {}) {
     Surface(
@@ -182,9 +190,13 @@ fun FilterChip(text: String, onClick: () -> Unit = {}) {
     }
 }
 
+// 🔹 Iconos de categoría con navegación
 @Composable
-fun CategoryIcon(iconRes: Int, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun CategoryIcon(iconRes: Int, label: String, onClick: () -> Unit = {}) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.clickable { onClick() }
+    ) {
         Surface(
             modifier = Modifier.size(64.dp),
             shape = CircleShape,
@@ -202,6 +214,7 @@ fun CategoryIcon(iconRes: Int, label: String) {
     }
 }
 
+// 🔹 Tarjetas de opciones (sin navegación)
 @Composable
 fun OptionCard(imageRes: Int, text: String) {
     Column(
@@ -226,4 +239,11 @@ fun OptionCard(imageRes: Int, text: String) {
     }
 }
 
-
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreenPreview() {
+    val fakeNavController = rememberNavController()
+    RYUU_FITTheme {
+        HomeScreen(navController = fakeNavController)
+    }
+}

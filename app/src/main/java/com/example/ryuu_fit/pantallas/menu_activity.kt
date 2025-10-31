@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
 
@@ -64,7 +65,7 @@ fun MenuScreen(navController: NavController) {
             // Botón Rutina semanal
             Card(
                 onClick = {
-                    navController.navigate(AppPantallas.Rutina.ruta)
+                    navController.navigate(AppPantallas.TrainingWeek.ruta)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,7 +77,7 @@ fun MenuScreen(navController: NavController) {
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.drawable.rutina_semanal),
                         contentDescription = "Rutina semanal",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -99,7 +100,8 @@ fun MenuScreen(navController: NavController) {
             // Botón Plan alimenticio
             Card(
                 onClick = {
-                    // 🔹 Cuando crees la pantalla de Plan Alimenticio, la enlazaremos aquí
+                    navController.navigate(AppPantallas.Nutricion.ruta)
+                    // Cuando crees la pantalla de Plan Alimenticio, la enlazaremos aquí
                     // navController.navigate(AppPantallas.PlanAlimenticio.ruta)
                 },
                 modifier = Modifier
@@ -112,7 +114,7 @@ fun MenuScreen(navController: NavController) {
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.drawable.plan_alimenticio),
                         contentDescription = "Plan alimenticio",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -128,6 +130,20 @@ fun MenuScreen(navController: NavController) {
                         textAlign = TextAlign.Center
                     )
                 }
+            }
+            // Botón inferior
+            Button(
+                onClick = { navController?.popBackStack() },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Black
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .navigationBarsPadding()
+            ) {
+                Text("Volver")
             }
         }
     }
@@ -149,13 +165,10 @@ fun UserDataCard(text: String) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x000000)
 @Composable
 fun MenuScreenPreview() {
-    // Vista previa sin NavController
-    Surface(color = Color.Black) {
-        Column {
-            UserDataCard("Vista previa")
-        }
-    }
+    val navController = rememberNavController()
+    MenuScreen(navController)
 }
+

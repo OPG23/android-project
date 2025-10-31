@@ -20,11 +20,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
 
+
 // Modelo de datos para cada ejercicio
 data class Ejercicio(
     val nombre: String,
     val repeticiones: String,
-    val imagen: Int
+    val imagen: Int,
+    //val navController: NavController,
+    //val onClick: () -> Unit
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,10 +39,10 @@ fun detallesTraining(
 ) {
     // Lista de ejercicios que se mostrarán
     val ejercicios = listOf(
-        Ejercicio("Flexiones en Pica", "4×12", R.drawable.ic_launcher_foreground), // flexion_pica
-        Ejercicio("Plancha Frontal", "3×45", R.drawable.ic_launcher_foreground), // plancha_frontal
-        Ejercicio("Abdominales en Bicicleta", "3×20", R.drawable.ic_launcher_foreground), // abd_bici
-        Ejercicio("Elevaciones Laterales", "3×12", R.drawable.ic_launcher_foreground) // elevaciones_laterales
+        Ejercicio("Flexiones en Pica", "4×12", R.drawable.flexion_pica), // flexion_pica
+        Ejercicio("Plancha Frontal", "3×45", R.drawable.plancha_frontal), // plancha_frontal
+        Ejercicio("Abdominales en Bicicleta", "3×20", R.drawable.abd_bici), // abd_bici  onClick = { navController.navigate("detallesEx")}
+        Ejercicio("Elevaciones Laterales", "3×12", R.drawable.elevaciones_laterales) // elevaciones_laterales
     )
 
     // Estado para los checkboxes (true/false)
