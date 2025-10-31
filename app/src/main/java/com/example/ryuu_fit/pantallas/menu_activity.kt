@@ -16,14 +16,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuScreen(navController: NavController) {
+fun MenuScreen(
+    onSalirClick: () -> Unit,
+    onNavigateTo: (String) -> Unit
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Black
@@ -65,7 +66,7 @@ fun MenuScreen(navController: NavController) {
             // Botón Rutina semanal
             Card(
                 onClick = {
-                    navController.navigate(AppPantallas.TrainingWeek.ruta)
+                    onNavigateTo(AppPantallas.TrainingWeek.ruta)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,9 +101,7 @@ fun MenuScreen(navController: NavController) {
             // Botón Plan alimenticio
             Card(
                 onClick = {
-                    navController.navigate(AppPantallas.Nutricion.ruta)
-                    // Cuando crees la pantalla de Plan Alimenticio, la enlazaremos aquí
-                    // navController.navigate(AppPantallas.PlanAlimenticio.ruta)
+                    onNavigateTo(AppPantallas.Nutricion.ruta)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -131,9 +130,10 @@ fun MenuScreen(navController: NavController) {
                     )
                 }
             }
+
             // Botón inferior
             Button(
-                onClick = { navController?.popBackStack() },
+                onClick = { onSalirClick() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = Color.Black
@@ -168,7 +168,5 @@ fun UserDataCard(text: String) {
 @Preview(showBackground = true, backgroundColor = 0x000000)
 @Composable
 fun MenuScreenPreview() {
-    val navController = rememberNavController()
-    MenuScreen(navController)
+    MenuScreen(onSalirClick = {}, onNavigateTo = {})
 }
-
