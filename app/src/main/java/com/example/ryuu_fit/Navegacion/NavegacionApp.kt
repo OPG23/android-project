@@ -19,7 +19,7 @@ import com.example.ryuu_fit.pantallas.detallesTraining
 import com.example.ryuu_fit.pantallas.trainingWeek
 
 //Rutas Julian
-import com.example.ryuu_fit.pantallas.RutinaScreen
+import com.example.ryuu_fit.pantallas.Nutricion
 import com.example.ryuu_fit.pantallas.MenuScreen
 
 
@@ -59,8 +59,8 @@ fun NavegacionApp() {
 
 
         //Partes Julian
-        composable(route = AppPantallas.Rutina.ruta) {
-            RutinaScreen(
+        composable(route = AppPantallas.Nutricion.ruta) {
+            Nutricion(
                 onSalirClick = {
                     navController.navigateUp() // vuelve atrás
                 }
@@ -78,3 +78,5 @@ fun NavegacionApp() {
 
 //Probando los pull request
 //Intento 2 con pull request
+// Se creo una nueva branch para probar el pull request
+//Tercer intento con el correo institucional

@@ -47,7 +47,6 @@ val preguntasParte1 = listOf(
 val preguntasParte2 = listOf(
     Pregunta("Cuántas horas sueles dormir", (4..12).map { "$it horas" }),
     Pregunta("Qué te motiva a entrenar", listOf("Salud", "Estética", "Rendimiento deportivo", "Otro")),
-    Pregunta("Peso (Kg)", (30..200).map { "$it kg" }),
     Pregunta("Quieres recibir notificaciones", listOf("Sí", "No"))
 )
 

@@ -14,7 +14,7 @@ sealed class AppPantallas(val ruta: String) {
     object TrainingWeek: AppPantallas("trainingWeek")
 
     //Julian Pantallas
-    object Rutina : AppPantallas("rutina")
+    object Nutricion : AppPantallas("nutricion")
 
     object Menu : AppPantallas("menu")
 
