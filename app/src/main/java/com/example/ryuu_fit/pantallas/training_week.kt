@@ -91,7 +91,16 @@ fun trainingWeek(navController: NavController) {
                         }
                         TextButton(
                             onClick = {
-                                navController.navigate(AppPantallas.DetallesTr.ruta)
+                                val ruta = when (dia) {
+                                    "Lunes" -> AppPantallas.Lunes.ruta
+                                    "Martes" -> AppPantallas.Martes.ruta
+                                    "Miércoles" -> AppPantallas.Miercoles.ruta
+                                    "Jueves" -> AppPantallas.DetallesTr.ruta
+                                    "Viernes" -> AppPantallas.Viernes.ruta
+                                    "Sábado" -> AppPantallas.Sabado.ruta
+                                    else -> AppPantallas.Home.ruta // seguridad opcional
+                                }
+                                navController.navigate(ruta)
                             },
                             modifier = Modifier.align(Alignment.End)
                         ) {

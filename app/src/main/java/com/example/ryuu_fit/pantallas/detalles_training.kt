@@ -2,6 +2,7 @@ package com.example.ryuu_fit.pantallas
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ryuu_fit.Navegacion.AppPantallas
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
 
@@ -26,6 +28,7 @@ data class Ejercicio(
     val nombre: String,
     val repeticiones: String,
     val imagen: Int,
+    val ruta: String
     //val navController: NavController,
     //val onClick: () -> Unit
 )
@@ -39,10 +42,10 @@ fun detallesTraining(
 ) {
     // Lista de ejercicios que se mostrarán
     val ejercicios = listOf(
-        Ejercicio("Flexiones en Pica", "4×12", R.drawable.flexion_pica), // flexion_pica
-        Ejercicio("Plancha Frontal", "3×45", R.drawable.plancha_frontal), // plancha_frontal
-        Ejercicio("Abdominales en Bicicleta", "3×20", R.drawable.abd_bici), // abd_bici  onClick = { navController.navigate("detallesEx")}
-        Ejercicio("Elevaciones Laterales", "3×12", R.drawable.elevaciones_laterales) // elevaciones_laterales
+        Ejercicio("Flexiones en Pica", "4×12", R.drawable.flexion_pica, AppPantallas.JFlexPica.ruta), // flexion_pica
+        Ejercicio("Plancha Frontal", "3×45", R.drawable.plancha_frontal, AppPantallas.JPlanchaFrontal.ruta), // plancha_frontal
+        Ejercicio("Abdominales en Bicicleta", "3×20", R.drawable.abd_bici, AppPantallas.DetallesEx.ruta), // abd_bici  onClick = { navController.navigate("detallesEx")}
+        Ejercicio("Elevaciones Laterales", "3×12", R.drawable.elevaciones_laterales, AppPantallas.JElevacionLat.ruta) // elevaciones_laterales
     )
 
     // Estado para los checkboxes (true/false)
@@ -141,7 +144,10 @@ fun detallesTraining(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp),
+                        .padding(vertical = 8.dp)
+                        .clickable{
+                            navController?.navigate(ejercicio.ruta)
+                        },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // Checkbox de progreso
