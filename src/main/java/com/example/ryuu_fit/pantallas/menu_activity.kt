@@ -76,7 +76,7 @@ fun MenuScreen(navController: NavController) {
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.rutina_semanal),
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
                         contentDescription = "Rutina semanal",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -112,7 +112,7 @@ fun MenuScreen(navController: NavController) {
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.plan_alimenticio),
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
                         contentDescription = "Plan alimenticio",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -127,7 +127,6 @@ fun MenuScreen(navController: NavController) {
                             .padding(16.dp),
                         textAlign = TextAlign.Center
                     )
-                    Button(onClick = {navController.navigate(AppPantallas.Home.ruta)}) { Text("volver", color = Color.White)}
                 }
             }
         }

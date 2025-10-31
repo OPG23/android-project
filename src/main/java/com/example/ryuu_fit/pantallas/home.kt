@@ -153,14 +153,7 @@ fun HomeScreen(
             ) {
                 OptionCard(R.drawable.ic_actuinfo, "Actualización de información")
                 OptionCard(R.drawable.ic_opcidietas, "Opciones de dietas")
-                Button(onClick = {navController.navigate(AppPantallas.Menu.ruta)}) { Text("P5", color = Color.White)}
-                /*
-                Button(onClick = {navController.navigate(AppPantallas.Rutina.ruta)}) { Text("P6", color = Color.White)}
-                Button(onClick = {navController.navigate(AppPantallas.DetallesTr.ruta)}) { Text("P7", color = Color.White)}
-                Button(onClick = {navController.navigate(AppPantallas.DetallesEx.ruta)}) { Text("P8", color = Color.White)}
-                Button(onClick = {navController.navigate(AppPantallas.Rutina.ruta)}) { Text("P9", color = Color.White)}
-                */
-
+                Button(onClick = {navController.navigate(AppPantallas.Menu.ruta)}) { }
             }
         }
     }
