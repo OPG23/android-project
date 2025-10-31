@@ -1,39 +1,35 @@
 package com.example.ryuu_fit.Navegacion
 
-
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.pantallas.LoginScreen
 import com.example.ryuu_fit.pantallas.TestInicialScreen
 import com.example.ryuu_fit.pantallas.HomeScreen
 
-
-//Rutas Johan
+// Rutas Johan
 import com.example.ryuu_fit.pantallas.detallesEjercicio
 import com.example.ryuu_fit.pantallas.detallesTraining
 import com.example.ryuu_fit.pantallas.trainingWeek
 
-//Rutas Julian
+// Rutas Julian
 import com.example.ryuu_fit.pantallas.RutinaScreen
 import com.example.ryuu_fit.pantallas.MenuScreen
-
-
-//import com.example.ryuu_fit.pantallas.(nombre de la funcion)
-
+import com.example.ryuu_fit.pantallas.CardioScreen
+import com.example.ryuu_fit.pantallas.FuerzaScreen
+import com.example.ryuu_fit.pantallas.ResistenciaScreen
+import com.example.ryuu_fit.pantallas.ElasticidadScreen
 
 @Composable
 fun NavegacionApp() {
     val navController = rememberNavController()
+
     NavHost(
         navController = navController,
         startDestination = AppPantallas.Login.ruta
-    )
-    {
+    ) {
+        // Pantallas principales
         composable(route = AppPantallas.Login.ruta) {
             LoginScreen(navController)
         }
@@ -44,25 +40,22 @@ fun NavegacionApp() {
             TestInicialScreen(navController)
         }
 
-        //Partes de Johan
+        // Parte de Johan
         composable(route = AppPantallas.DetallesTr.ruta) {
             detallesTraining(navController)
         }
-
         composable(route = AppPantallas.DetallesEx.ruta) {
             detallesEjercicio(navController)
         }
-
         composable(route = AppPantallas.TrainingWeek.ruta) {
             trainingWeek(navController)
         }
 
-
-        //Partes Julian
+        // Parte de Julian
         composable(route = AppPantallas.Rutina.ruta) {
             RutinaScreen(
                 onSalirClick = {
-                    navController.navigateUp() // vuelve atrás
+                    navController.navigateUp()
                 }
             )
         }
@@ -71,7 +64,46 @@ fun NavegacionApp() {
             MenuScreen(navController)
         }
 
+        composable(route = AppPantallas.Cardio.ruta) {
+            CardioScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
 
+        composable(route = AppPantallas.Fuerza.ruta) {
+            FuerzaScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Resistencia.ruta) {
+            ResistenciaScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Elasticidad.ruta) {
+            ElasticidadScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
     }
+
 
 }
