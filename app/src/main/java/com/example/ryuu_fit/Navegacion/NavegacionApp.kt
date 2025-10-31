@@ -1,12 +1,10 @@
 package com.example.ryuu_fit.Navegacion
 
-
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.pantallas.AbdomCortos
 import com.example.ryuu_fit.pantallas.CurlBotellas
@@ -25,7 +23,6 @@ import com.example.ryuu_fit.pantallas.TestInicialScreen
 import com.example.ryuu_fit.pantallas.HomeScreen
 import com.example.ryuu_fit.pantallas.MarchaActiva
 import com.example.ryuu_fit.pantallas.MarchaSitio
-
 
 //Rutas Johan
 import com.example.ryuu_fit.pantallas.detallesEjercicio
@@ -49,6 +46,13 @@ import com.example.ryuu_fit.pantallas.martes
 import com.example.ryuu_fit.pantallas.miercoles
 import com.example.ryuu_fit.pantallas.sabado
 import com.example.ryuu_fit.pantallas.viernes
+
+//Rutas Jhon Quenan
+import com.example.ryuu_fit.pantallas.DietaDesayuno
+import com.example.ryuu_fit.pantallas.DietaMerienda
+import com.example.ryuu_fit.pantallas.DietaAlmuerzo
+import com.example.ryuu_fit.pantallas.DietaCena
+import com.example.ryuu_fit.pantallas.DietaSnack
 
 
 //import com.example.ryuu_fit.pantallas.(nombre de la funcion)
@@ -199,16 +203,36 @@ fun NavegacionApp() {
 
 
         //Partes Julian
+
         composable(route = AppPantallas.Nutricion.ruta) {
             Nutricion(
-                onSalirClick = {
-                    navController.navigateUp() // vuelve atrás
-                }
+                onSalirClick = { navController.navigateUp() },
+                onNavigateTo = { ruta -> navController.navigate(ruta) }
             )
         }
 
+        // Jhon quenan
+
         composable(route = AppPantallas.Menu.ruta) {
-            MenuScreen(navController)
+            MenuScreen(
+                onSalirClick = { navController.navigateUp() },
+                onNavigateTo = { ruta -> navController.navigate(ruta) }
+            )
+        }
+        composable(route = "dieta_desayuno") {
+            DietaDesayuno(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_merienda") {
+            DietaMerienda(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_almuerzo") {
+            DietaAlmuerzo(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_cena") {
+            DietaCena(onBack = { navController.popBackStack() })
+        }
+        composable(route = "dieta_snack") {
+            DietaSnack(onBack = { navController.popBackStack() })
         }
 
 
