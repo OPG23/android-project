@@ -1,5 +1,6 @@
 package com.example.ryuu_fit.pantallas
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 //import androidx.compose.material.icons.Icons
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.R
 import kotlinx.coroutines.delay
+import kotlin.String
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,10 +28,27 @@ fun ElevacionesLaterales(
     dia: String = "Jueves",
     ejercicio: String = "Elevaciones laterales",
     repeticiones: String = "3x12",
-    imagen: Int = R.drawable.elevaciones_laterales // abd_bici
+    imagen: Int = R.drawable.elevaciones_laterales, // abd_bici
+    descripcion: String = "Fortalece los hombros (deltoides laterales) y mejora la estabilidad del torso, aportando tono y forma a la parte superior del cuerpo."
 ) {
-    // Estado de la serie actual
     var serie by remember { mutableStateOf(1) }
+    var isResting by remember { mutableStateOf(false) } // Indica si está en descanso
+    var timeLeft by remember { mutableStateOf(30) } // Tiempo restante en segundos
+    var showDetails by remember { mutableStateOf(false) } // Desplegable
+
+    // Efecto que ejecuta el cronómetro cuando isResting es true
+    LaunchedEffect(isResting) {
+        if (isResting) {
+            for (i in 30 downTo 1) {
+                timeLeft = i
+                delay(1000L)
+            }
+            // Cuando el tiempo llega a 0, avanza de serie y termina el descanso
+            serie++
+            isResting = false
+            timeLeft = 30
+        }
+    }
 
     Scaffold(
         // Barra superior
@@ -97,6 +116,33 @@ fun ElevacionesLaterales(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            //Boton desplegable para los detalles
+            Button(
+                onClick = { showDetails = !showDetails},
+                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+            ) {
+                Text(
+                    text = if (showDetails) "Ocultar detalles" else "Ver detalles",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            }
+
+            // Animacion para el desplegable
+            AnimatedVisibility(visible = showDetails) {
+                Text(
+                    text = descripcion,
+                    color = Color.LightGray,
+                    fontSize = 14.sp,
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .fillMaxWidth(),
+                    lineHeight = 20.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
             // Texto de progreso
             if (serie <= 3) {
                 Text(
@@ -122,10 +168,22 @@ fun ElevacionesLaterales(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Botón siguiente serie
-            if (serie <= 3) {
+            // Mostrar el cronómetro si está en descanso
+            if (isResting && serie <= 3) {
+                Text(
+                    text = "Descanso: ${timeLeft}s",
+                    color = Color.Red,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Botón de control
+            if (serie <= 3 && !isResting) {
                 Button(
-                    onClick = { serie++ },
+                    onClick = { isResting = true },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
                 ) {
                     Text(
