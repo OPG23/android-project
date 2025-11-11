@@ -55,6 +55,8 @@ import com.example.ryuu_fit.pantallas.DietaCena
 import com.example.ryuu_fit.pantallas.DietaSnack
 
 
+//Rutas Quenan
+
 //import com.example.ryuu_fit.pantallas.(nombre de la funcion)
 
 
