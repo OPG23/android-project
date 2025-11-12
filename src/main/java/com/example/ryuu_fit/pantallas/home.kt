@@ -140,7 +140,9 @@ fun HomeScreen(
                 CategoryIcon(
                     iconRes = R.drawable.ic_cardio,
                     label = "Cardio",
-                    onClick = { navController.navigate(AppPantallas.Cardio.ruta) }
+                    onClick = {
+                        navController.navigate(AppPantallas.Cardio.ruta)
+                    }
                 )
                 CategoryIcon(
                     iconRes = R.drawable.ic_fuerza,

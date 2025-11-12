@@ -12,7 +12,12 @@
           "package_name": "com.example.ryuu_fit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "736892414199-t0hltkft70iffkbts1qpurkm1l3o051m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBlTNmN4uax_uErxj3SWwCU8gLVrdWbTm0"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736892414199-t0hltkft70iffkbts1qpurkm1l3o051m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

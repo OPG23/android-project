@@ -65,14 +65,9 @@ fun NavegacionApp() {
         }
 
         composable(route = AppPantallas.Cardio.ruta) {
-            CardioScreen(
-                onFinalizarClick = {
-                    navController.navigate(AppPantallas.Home.ruta) {
-                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
-                    }
-                }
-            )
+            CardioScreen(navController = navController)
         }
+
 
         composable(route = AppPantallas.Fuerza.ruta) {
             FuerzaScreen(

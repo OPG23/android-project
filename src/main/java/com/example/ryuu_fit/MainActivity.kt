@@ -20,8 +20,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             RYUU_FITTheme {
                 NavegacionApp()
-
-
             }
         }
     }
