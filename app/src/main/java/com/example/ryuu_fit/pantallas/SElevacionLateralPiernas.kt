@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.R
 import kotlinx.coroutines.delay
-
+//
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ElevacionLat(
