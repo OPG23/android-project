@@ -42,6 +42,12 @@ sealed class AppPantallas(val ruta: String) {
 
     //Julian Pantallas
     object Nutricion : AppPantallas("nutricion")
+    object Rutina : AppPantallas("rutina")
+    object Cardio : AppPantallas("cardio")
+    object Fuerza : AppPantallas("fuerza")
+    object Resistencia : AppPantallas("resistencia")
+    object Elasticidad : AppPantallas("elasticidad")
+
 
     object Menu : AppPantallas("menu")
 

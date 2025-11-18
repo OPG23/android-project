@@ -1,4 +1,4 @@
-package com.example.ryuu_fit.pantallas
+package com.example.ryuu_fit.`pantallas-2`
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,33 +17,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
-import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Se importa para poder usar las rutas definidas
+import com.example.ryuu_fit.Navegacion.AppPantallas
 
-// Modelo de datos para los ejercicios de cardio
-data class EjercicioCardio(
+data class EjercicioElasticidad(
     val nombre: String,
-    val duracion: String,
+    val repeticiones: String,
     val imagen: Int
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardioScreen(
-    navController: NavController? = null, // Permite navegar entre pantallas
-    dia: String = "Cardio",
-    rutina: String = "Cardio y Resistencia",
-    onFinalizarClick: (() -> Unit)? = null // ✅ agregado para compatibilidad con NavigationApp
+fun ElasticidadScreen(
+
+    navController: NavController? = null,
+    dia: String = "Elasticidad",
+    rutina: String = "Elasticidad y Movilidad",
+    onFinalizarClick: (() -> Unit)? = null //
 ) {
-// Lista de ejercicios (solo ejercicios sin equipo)
     val ejercicios = listOf(
-        EjercicioCardio("Jumping Jacks", "3×45 seg", R.drawable.jumping),
-        EjercicioCardio("Burpees", "4×15 rep", R.drawable.burpees),
-        EjercicioCardio("High Knees", "3×40 seg", R.drawable.highknees),
-        EjercicioCardio("Mountain Climbers", "3×30 seg", R.drawable.climbers),
-        EjercicioCardio("Sprints en el Lugar", "4×30 seg", R.drawable.sprints)
+        EjercicioElasticidad("Estiramiento de Espalda y Brazos", "3×30 seg", R.drawable.elasticidad_espalda),
+        EjercicioElasticidad("Estiramiento de Piernas Sentado", "3×30 seg", R.drawable.elasticidad_piernas),
+        EjercicioElasticidad("Giro de Tronco de Pie", "3×20", R.drawable.elasticidad_tronco),
+        EjercicioElasticidad("Rotación de Caderas", "3×20", R.drawable.elasticidad_caderas),
+        EjercicioElasticidad("Perro Boca Abajo (Yoga)", "3×40 seg", R.drawable.elasticidad_perro)
     )
 
-// Estado de los checkboxes (para marcar ejercicios completados)
+    // Estados de selección de ejercicios
     val estados = remember { mutableStateListOf(*Array(ejercicios.size) { false }) }
 
     Scaffold(
@@ -57,8 +56,7 @@ fun CardioScreen(
                     )
                 },
                 navigationIcon = {
-                    // 🔙 Botón para regresar a la pantalla anterior
-                    IconButton(onClick = { navController?.popBackStack() }) {
+                    IconButton(onClick = { navController?.navigate(AppPantallas.Home.ruta) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -71,7 +69,6 @@ fun CardioScreen(
         },
         containerColor = Color.Black,
         bottomBar = {
-            // ✅ BOTÓN FINALIZAR ENTRENAMIENTO corregido
             Button(
                 onClick = { onFinalizarClick?.invoke() ?: navController?.navigate(AppPantallas.Home.ruta) },
                 colors = ButtonDefaults.buttonColors(
@@ -94,7 +91,6 @@ fun CardioScreen(
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            // Encabezado
             item {
                 Text(
                     text = "Rutina de $rutina",
@@ -120,7 +116,7 @@ fun CardioScreen(
                             .padding(end = 12.dp)
                     )
                     Text(
-                        text = "Activa tu ritmo cardíaco con esta rutina de cardio intensa. Mantén una respiración constante y controla tu frecuencia cardíaca. ¡Tú puedes!",
+                        text = "Mejora tu movilidad y flexibilidad con estiramientos suaves que reducen la tensión muscular y mejoran tu postura.",
                         color = Color.White,
                         fontSize = 14.sp
                     )
@@ -129,7 +125,6 @@ fun CardioScreen(
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
-            // Lista de ejercicios
             itemsIndexed(ejercicios) { index, ejercicio ->
                 Row(
                     modifier = Modifier
@@ -156,7 +151,7 @@ fun CardioScreen(
                             fontWeight = if (estados[index]) FontWeight.Bold else FontWeight.Normal
                         )
                         Text(
-                            text = ejercicio.duracion,
+                            text = ejercicio.repeticiones,
                             color = Color.Gray,
                             fontSize = 14.sp
                         )
@@ -171,12 +166,10 @@ fun CardioScreen(
             }
         }
     }
-
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun CardioPreview() {
-    CardioScreen(dia = "Cardio", rutina = "Cardio y Resistencia")
+fun ElasticidadPreview() {
+    ElasticidadScreen()
 }

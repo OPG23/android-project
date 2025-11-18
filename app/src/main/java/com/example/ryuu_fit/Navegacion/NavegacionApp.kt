@@ -47,6 +47,21 @@ import com.example.ryuu_fit.pantallas.miercoles
 import com.example.ryuu_fit.pantallas.sabado
 import com.example.ryuu_fit.pantallas.viernes
 
+
+
+// Rutas Johan
+import com.example.ryuu_fit.`pantallas-2`.detallesEjercicio
+
+
+// Rutas Julian
+import com.example.ryuu_fit.`pantallas-2`.RutinaScreen
+import com.example.ryuu_fit.`pantallas-2`.MenuScreen
+import com.example.ryuu_fit.`pantallas-2`.CardioScreen
+import com.example.ryuu_fit.`pantallas-2`.FuerzaScreen
+import com.example.ryuu_fit.`pantallas-2`.ResistenciaScreen
+import com.example.ryuu_fit.`pantallas-2`.ElasticidadScreen
+
+
 //Rutas Jhon Quenan
 import com.example.ryuu_fit.pantallas.DietaDesayuno
 import com.example.ryuu_fit.pantallas.DietaMerienda
@@ -210,6 +225,58 @@ fun NavegacionApp() {
             Nutricion(
                 onSalirClick = { navController.navigateUp() },
                 onNavigateTo = { ruta -> navController.navigate(ruta) }
+            )
+        }
+        // Parte de Julian
+        composable(route = AppPantallas.Rutina.ruta) {
+            RutinaScreen(
+                onSalirClick = {
+                    navController.navigateUp()
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Menu.ruta) {
+            MenuScreen(navController)
+        }
+
+        composable(route = AppPantallas.Cardio.ruta) {
+            CardioScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Fuerza.ruta) {
+            FuerzaScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Resistencia.ruta) {
+            ResistenciaScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Elasticidad.ruta) {
+            ElasticidadScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
             )
         }
 

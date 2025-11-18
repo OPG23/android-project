@@ -1,4 +1,4 @@
-package com.example.ryuu_fit.pantallas
+package com.example.ryuu_fit.`pantallas-2`
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,32 +17,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
-import com.example.ryuu_fit.Navegacion.AppPantallas
+import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Se importa para poder usar las rutas definidas
 
-data class EjercicioElasticidad(
+// Modelo de datos para los ejercicios de cardio
+data class EjercicioCardio(
     val nombre: String,
-    val repeticiones: String,
+    val duracion: String,
     val imagen: Int
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ElasticidadScreen(
-
-    navController: NavController? = null,
-    dia: String = "Elasticidad",
-    rutina: String = "Elasticidad y Movilidad",
-    onFinalizarClick: (() -> Unit)? = null //
+fun CardioScreen(
+    navController: NavController? = null, // Permite navegar entre pantallas
+    dia: String = "Cardio",
+    rutina: String = "Cardio y Resistencia",
+    onFinalizarClick: (() -> Unit)? = null // ✅ agregado para compatibilidad con NavigationApp
 ) {
+// Lista de ejercicios (solo ejercicios sin equipo)
     val ejercicios = listOf(
-        EjercicioElasticidad("Estiramiento de Espalda y Brazos", "3×30 seg", R.drawable.elasticidad_espalda),
-        EjercicioElasticidad("Estiramiento de Piernas Sentado", "3×30 seg", R.drawable.elasticidad_piernas),
-        EjercicioElasticidad("Giro de Tronco de Pie", "3×20", R.drawable.elasticidad_tronco),
-        EjercicioElasticidad("Rotación de Caderas", "3×20", R.drawable.elasticidad_caderas),
-        EjercicioElasticidad("Perro Boca Abajo (Yoga)", "3×40 seg", R.drawable.elasticidad_perro)
+        EjercicioCardio("Jumping Jacks", "3×45 seg", R.drawable.jumping),
+        EjercicioCardio("Burpees", "4×15 rep", R.drawable.burpees),
+        EjercicioCardio("High Knees", "3×40 seg", R.drawable.highknees),
+        EjercicioCardio("Mountain Climbers", "3×30 seg", R.drawable.climbers),
+        EjercicioCardio("Sprints en el Lugar", "4×30 seg", R.drawable.sprints)
     )
 
-    // Estados de selección de ejercicios
+// Estado de los checkboxes (para marcar ejercicios completados)
     val estados = remember { mutableStateListOf(*Array(ejercicios.size) { false }) }
 
     Scaffold(
@@ -56,7 +57,8 @@ fun ElasticidadScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController?.navigate(AppPantallas.Home.ruta) }) {
+                    // 🔙 Botón para regresar a la pantalla anterior
+                    IconButton(onClick = { navController?.popBackStack() }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -69,6 +71,7 @@ fun ElasticidadScreen(
         },
         containerColor = Color.Black,
         bottomBar = {
+            // ✅ BOTÓN FINALIZAR ENTRENAMIENTO corregido
             Button(
                 onClick = { onFinalizarClick?.invoke() ?: navController?.navigate(AppPantallas.Home.ruta) },
                 colors = ButtonDefaults.buttonColors(
@@ -91,6 +94,7 @@ fun ElasticidadScreen(
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
+            // Encabezado
             item {
                 Text(
                     text = "Rutina de $rutina",
@@ -116,7 +120,7 @@ fun ElasticidadScreen(
                             .padding(end = 12.dp)
                     )
                     Text(
-                        text = "Mejora tu movilidad y flexibilidad con estiramientos suaves que reducen la tensión muscular y mejoran tu postura.",
+                        text = "Activa tu ritmo cardíaco con esta rutina de cardio intensa. Mantén una respiración constante y controla tu frecuencia cardíaca. ¡Tú puedes!",
                         color = Color.White,
                         fontSize = 14.sp
                     )
@@ -125,6 +129,7 @@ fun ElasticidadScreen(
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
+            // Lista de ejercicios
             itemsIndexed(ejercicios) { index, ejercicio ->
                 Row(
                     modifier = Modifier
@@ -151,7 +156,7 @@ fun ElasticidadScreen(
                             fontWeight = if (estados[index]) FontWeight.Bold else FontWeight.Normal
                         )
                         Text(
-                            text = ejercicio.repeticiones,
+                            text = ejercicio.duracion,
                             color = Color.Gray,
                             fontSize = 14.sp
                         )
@@ -166,10 +171,12 @@ fun ElasticidadScreen(
             }
         }
     }
+
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ElasticidadPreview() {
-    ElasticidadScreen()
+fun CardioPreview() {
+    CardioScreen(dia = "Cardio", rutina = "Cardio y Resistencia")
 }

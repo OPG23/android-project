@@ -1,4 +1,4 @@
-package com.example.ryuu_fit.pantallas
+package com.example.ryuu_fit.`pantallas-2`
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
