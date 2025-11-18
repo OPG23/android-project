@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
 import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Se importa para poder usar las rutas definidas
-
+//
 // Modelo de datos para los ejercicios de cardio
 data class EjercicioCardio(
     val nombre: String,
