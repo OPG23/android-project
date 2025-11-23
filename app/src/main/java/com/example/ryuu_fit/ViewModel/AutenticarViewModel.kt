@@ -1,26 +1,26 @@
 package com.example.ryuu_fit.ViewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.ryuu_fit.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import org.json.JSONObject
+import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.mutableStateOf
 
-class AutenticarViewModel {
+class UserPreferencesViewModel : ViewModel() {
 
-    /*
-    val googleIdOption = GetGoogleIdOption.Builder()
-        .setFilterByAuthorizedAccounts(true)
-        .setServerClientId(baseContext.getString(R.string.default_web_client_id))
-        .build()
+    // días seleccionados (1..7)
+    var diasEntreno = mutableStateOf(0)
 
-    val request = GetCredentialRequest.Builder()
-        .addCredentialOption(googleIdOption)
-        .build()
+    fun setDiasEntreno(valor: Int) {
+        diasEntreno.value = valor
+    }
 
-     */
+    // función que devuelve la lista de pantallas según días
+    fun pantallasParaDias(): List<String> {
+        return when (diasEntreno.value) {
+            2 -> listOf("lunes", "miercoles")
+            3 -> listOf("lunes", "miercoles", "viernes")
+            4 -> listOf("lunes", "martes", "jueves", "sabado")
+            5 -> listOf("lunes", "martes", "miercoles", "jueves", "viernes")
+            6 -> listOf("lunes", "martes", "miercoles", "jueves", "viernes", "sabado")
+            else -> emptyList()
+        }
+    }
 }
