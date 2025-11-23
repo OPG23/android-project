@@ -175,8 +175,11 @@ fun FilterChip(text: String, onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun CategoryIcon(iconRes: Int, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun CategoryIcon(iconRes: Int, label: String, onClick: () -> Unit = {}) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.clickable { onClick() }
+    ) {
         Surface(
             modifier = Modifier.size(64.dp),
             shape = CircleShape,
@@ -189,10 +192,18 @@ fun CategoryIcon(iconRes: Int, label: String) {
                 modifier = Modifier.padding(12.dp)
             )
         }
+
         Spacer(modifier = Modifier.height(4.dp))
-        Text(label, color = Color.White, fontSize = 12.sp, textAlign = TextAlign.Center)
+
+        Text(
+            label,
+            color = Color.White,
+            fontSize = 12.sp,
+            textAlign = TextAlign.Center
+        )
     }
 }
+
 
 @Composable
 fun OptionCard(imageRes: Int, text: String, onClick: () -> Unit) {
