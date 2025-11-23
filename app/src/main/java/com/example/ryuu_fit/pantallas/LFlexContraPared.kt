@@ -20,7 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.R
 import kotlinx.coroutines.delay
 import kotlin.String
-
+//
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlexionContraPared(

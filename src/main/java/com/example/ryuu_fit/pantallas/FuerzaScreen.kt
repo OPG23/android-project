@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
 import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Importación para usar rutas del sistema de navegación
-
+//
 // Modelo de datos para los ejercicios de fuerza
 data class EjercicioFuerza(
     val nombre: String,

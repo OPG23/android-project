@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
 
-
+//
 // Modelo de datos para cada ejercicio
 data class EjercicioSa(
     val nombre: String,
