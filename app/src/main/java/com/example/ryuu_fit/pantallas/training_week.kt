@@ -5,8 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,15 +14,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
+import com.example.ryuu_fit.ViewModel.TestViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun trainingWeek(navController: NavController) {
-    val dias = listOf(
+fun trainingWeek(
+    navController: NavController,
+    testViewModel: TestViewModel = viewModel()
+) {
+    // Observamos los días de entrenamiento desde el ViewModel
+    val diasEntreno by testViewModel.diasEntreno.collectAsState()
+
+    // Lista completa de días con sus rutinas
+    val todosLosDias = listOf(
         "Lunes" to "Pecho y triceps",
         "Martes" to "Espalda y biceps",
         "Miércoles" to "Piernas y gluteos",
@@ -33,12 +40,22 @@ fun trainingWeek(navController: NavController) {
         "Sábado" to "Piernas y core"
     )
 
+    // Filtramos los días según la cantidad seleccionada
+    val diasMostrar = remember(diasEntreno) {
+        filtrarDiasPorCantidad(todosLosDias, diasEntreno ?: 3)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Rutina Semanal", color = Color.Black) },
+                title = {
+                    Text(
+                        "Rutina Semanal (${diasEntreno ?: 3} días)",
+                        color = Color.Black
+                    )
+                },
                 navigationIcon = {
-                    IconButton(onClick = { navController?.popBackStack() }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -60,7 +77,28 @@ fun trainingWeek(navController: NavController) {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            dias.forEachIndexed { index, (dia, rutina) ->
+            // Mensaje informativo
+            if (diasEntreno == null) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFF1A1A1A)
+                    )
+                ) {
+                    Text(
+                        text = "⚠️ No has completado el test inicial. Mostrando rutina por defecto (3 días).",
+                        color = Color.Yellow,
+                        modifier = Modifier.padding(12.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Mostramos solo los días filtrados
+            diasMostrar.forEachIndexed { index, (dia, rutina) ->
 
                 Card(
                     modifier = Modifier
@@ -98,7 +136,7 @@ fun trainingWeek(navController: NavController) {
                                     "Jueves" -> AppPantallas.DetallesTr.ruta
                                     "Viernes" -> AppPantallas.Viernes.ruta
                                     "Sábado" -> AppPantallas.Sabado.ruta
-                                    else -> AppPantallas.Home.ruta // seguridad opcional
+                                    else -> AppPantallas.Home.ruta
                                 }
                                 navController.navigate(ruta)
                             },
@@ -109,7 +147,7 @@ fun trainingWeek(navController: NavController) {
                     }
                 }
 
-                if (index < dias.lastIndex) {
+                if (index < diasMostrar.lastIndex) {
                     Divider(
                         color = Color.Gray,
                         thickness = 1.dp,
@@ -131,7 +169,7 @@ fun trainingWeek(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController?.popBackStack() }, // vuelve atrás al terminar
+                onClick = { navController.popBackStack() },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red,
@@ -141,6 +179,59 @@ fun trainingWeek(navController: NavController) {
                 Text("Terminar circuito")
             }
         }
+    }
+}
+
+/**
+ * Función que filtra los días de entrenamiento según la cantidad seleccionada
+ */
+fun filtrarDiasPorCantidad(
+    todosLosDias: List<Pair<String, String>>,
+    cantidad: Int
+): List<Pair<String, String>> {
+    return when (cantidad) {
+        1 -> listOf(todosLosDias[0]) // Lunes
+
+        2 -> listOf(
+            todosLosDias[0], // Lunes
+            todosLosDias[3]  // Jueves
+        )
+
+        3 -> listOf(
+            todosLosDias[0], // Lunes
+            todosLosDias[2], // Miércoles
+            todosLosDias[4]  // Viernes
+        )
+
+        4 -> listOf(
+            todosLosDias[0], // Lunes
+            todosLosDias[1], // Martes
+            todosLosDias[3], // Jueves
+            todosLosDias[4]  // Viernes
+        )
+
+        5 -> listOf(
+            todosLosDias[0], // Lunes
+            todosLosDias[1], // Martes
+            todosLosDias[2], // Miércoles
+            todosLosDias[3], // Jueves
+            todosLosDias[4]  // Viernes
+        )
+
+        6 -> listOf(
+            todosLosDias[0], // Lunes
+            todosLosDias[1], // Martes
+            todosLosDias[2], // Miércoles
+            todosLosDias[3], // Jueves
+            todosLosDias[4], // Viernes
+            todosLosDias[5]  // Sábado
+        )
+
+        else -> listOf(
+            todosLosDias[0], // Por defecto: Lunes, Miércoles, Viernes
+            todosLosDias[2],
+            todosLosDias[4]
+        )
     }
 }
 

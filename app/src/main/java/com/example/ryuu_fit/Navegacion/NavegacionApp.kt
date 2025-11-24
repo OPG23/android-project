@@ -1,8 +1,8 @@
 package com.example.ryuu_fit.Navegacion
 
+import android.app.Application
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavHostController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -65,26 +65,39 @@ import com.example.ryuu_fit.pantallas.DietaSnack
 
 //import com.example.ryuu_fit.pantallas.(nombre de la funcion)
 
+import com.example.ryuu_fit.ViewModel.TestViewModel
+import com.example.ryuu_fit.ViewModel.TestViewModelFactory
+import com.example.ryuu_fit.pantallas.*
 
 @Composable
 fun NavegacionApp() {
     val navController = rememberNavController()
+
+    // 🔥 Crear el Factory con el contexto de la aplicación
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val factory = TestViewModelFactory(context.applicationContext as Application)
+
+    // 🔥 Crear una única instancia del ViewModel que se compartirá entre pantallas
+    val testViewModel: TestViewModel = viewModel(factory = factory)
+
     NavHost(
         navController = navController,
         startDestination = AppPantallas.Login.ruta
-    )
-    {
+    ) {
         composable(route = AppPantallas.Login.ruta) {
             LoginScreen(navController)
         }
+
         composable(route = AppPantallas.Home.ruta) {
             HomeScreen(navController)
         }
+
         composable(route = AppPantallas.Test.ruta) {
-            TestInicialScreen(navController)
+            // 🔥 Pasar el ViewModel compartido
+            TestInicialScreen(navController, testViewModel)
         }
 
-        //Partes de Johan
+        // Partes de Johan
         composable(route = AppPantallas.DetallesTr.ruta) {
             detallesTraining(navController)
         }
@@ -94,10 +107,11 @@ fun NavegacionApp() {
         }
 
         composable(route = AppPantallas.TrainingWeek.ruta) {
-            trainingWeek(navController)
+            // 🔥 Pasar el ViewModel compartido
+            trainingWeek(navController, testViewModel)
         }
 
-        composable(route = AppPantallas.Lunes.ruta){
+        composable(route = AppPantallas.Lunes.ruta) {
             lunes(navController)
         }
 
@@ -113,7 +127,7 @@ fun NavegacionApp() {
             viernes(navController)
         }
 
-        composable(route = AppPantallas.Sabado.ruta){
+        composable(route = AppPantallas.Sabado.ruta) {
             sabado(navController)
         }
 
@@ -129,7 +143,7 @@ fun NavegacionApp() {
             FlexionContraPared(navController)
         }
 
-        composable(route = AppPantallas.LFondoSilas.ruta){
+        composable(route = AppPantallas.LFondoSilas.ruta) {
             FondoSilla(navController)
         }
 
@@ -145,7 +159,7 @@ fun NavegacionApp() {
             RemoToalla(navController)
         }
 
-        composable(route = AppPantallas.MSuperman.ruta){
+        composable(route = AppPantallas.MSuperman.ruta) {
             SupermanTumbado(navController)
         }
 
@@ -157,7 +171,7 @@ fun NavegacionApp() {
             ElevacionTalones(navController)
         }
 
-        composable(route = AppPantallas.MiMarchaSitio.ruta){
+        composable(route = AppPantallas.MiMarchaSitio.ruta) {
             MarchaSitio(navController)
         }
 
@@ -173,11 +187,11 @@ fun NavegacionApp() {
             FlexPica(navController)
         }
 
-        composable(route = AppPantallas.JPlanchaFrontal.ruta){
+        composable(route = AppPantallas.JPlanchaFrontal.ruta) {
             PlanchaFrontal(navController)
         }
 
-        composable(route = AppPantallas.VFlexPared.ruta){
+        composable(route = AppPantallas.VFlexPared.ruta) {
             FlexPared(navController)
         }
 
@@ -189,7 +203,7 @@ fun NavegacionApp() {
             Respiracion(navController)
         }
 
-        composable(route = AppPantallas.VSentadillaExten.ruta){
+        composable(route = AppPantallas.VSentadillaExten.ruta) {
             SentadillaExten(navController)
         }
 
@@ -205,7 +219,7 @@ fun NavegacionApp() {
             PlanchaAntebrazos(navController)
         }
 
-        composable(route = AppPantallas.SSentadiApoyo.ruta){
+        composable(route = AppPantallas.SSentadiApoyo.ruta) {
             SentadillasApoyo(navController)
         }
 
@@ -260,6 +274,7 @@ fun NavegacionApp() {
             )
         }
 
+        // Partes Julian
         composable(route = AppPantallas.Nutricion.ruta) {
             Nutricion(
                 onSalirClick = { navController.navigateUp() },
@@ -268,35 +283,31 @@ fun NavegacionApp() {
         }
 
         // Jhon quenan
-
         composable(route = AppPantallas.Menu.ruta) {
             MenuScreen(
                 onSalirClick = { navController.navigateUp() },
                 onNavigateTo = { ruta -> navController.navigate(ruta) }
             )
         }
+
         composable(route = "dieta_desayuno") {
             DietaDesayuno(onBack = { navController.popBackStack() })
         }
+
         composable(route = "dieta_merienda") {
             DietaMerienda(onBack = { navController.popBackStack() })
         }
+
         composable(route = "dieta_almuerzo") {
             DietaAlmuerzo(onBack = { navController.popBackStack() })
         }
+
         composable(route = "dieta_cena") {
             DietaCena(onBack = { navController.popBackStack() })
         }
+
         composable(route = "dieta_snack") {
             DietaSnack(onBack = { navController.popBackStack() })
         }
-
-
     }
-
 }
-
-//Probando los pull request
-//Intento 2 con pull request
-// Se creo una nueva branch para probar el pull request
-//Tercer intento con el correo institucional

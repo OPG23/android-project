@@ -21,7 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
 import com.example.ryuu_fit.ui.theme.RYUU_FITTheme
-
+//
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(

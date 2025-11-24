@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.R
 import com.example.ryuu_fit.Navegacion.AppPantallas
-
+//
 data class EjercicioElasticidad(
     val nombre: String,
     val repeticiones: String,
