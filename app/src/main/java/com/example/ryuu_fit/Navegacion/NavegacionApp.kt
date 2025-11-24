@@ -6,7 +6,28 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
+
+//Rutas Johan
+import com.example.ryuu_fit.pantallas.detallesEjercicio
+import com.example.ryuu_fit.pantallas.detallesTraining
+import com.example.ryuu_fit.pantallas.trainingWeek
+import com.example.ryuu_fit.pantallas.PlanchaAntebrazos
+import com.example.ryuu_fit.pantallas.PlanchaFrontal
+import com.example.ryuu_fit.pantallas.PuenteGluteo
+import com.example.ryuu_fit.pantallas.RemoToalla
+import com.example.ryuu_fit.pantallas.Respiracion
+import com.example.ryuu_fit.pantallas.SentadillaExten
+import com.example.ryuu_fit.pantallas.SentadillasApoyo
+import com.example.ryuu_fit.pantallas.SentadillasParciales
+import com.example.ryuu_fit.pantallas.SupermanTumbado
+import com.example.ryuu_fit.pantallas.lunes
+import com.example.ryuu_fit.pantallas.martes
+import com.example.ryuu_fit.pantallas.miercoles
+import com.example.ryuu_fit.pantallas.sabado
+import com.example.ryuu_fit.pantallas.viernes
 import com.example.ryuu_fit.pantallas.AbdomCortos
+import com.example.ryuu_fit.pantallas.CardioScreen
 import com.example.ryuu_fit.pantallas.CurlBotellas
 import com.example.ryuu_fit.pantallas.ElevacionLat
 import com.example.ryuu_fit.pantallas.ElevacionTalones
@@ -24,28 +45,14 @@ import com.example.ryuu_fit.pantallas.HomeScreen
 import com.example.ryuu_fit.pantallas.MarchaActiva
 import com.example.ryuu_fit.pantallas.MarchaSitio
 
-//Rutas Johan
-import com.example.ryuu_fit.pantallas.detallesEjercicio
-import com.example.ryuu_fit.pantallas.detallesTraining
-import com.example.ryuu_fit.pantallas.trainingWeek
-
 //Rutas Julian
 import com.example.ryuu_fit.pantallas.Nutricion
 import com.example.ryuu_fit.pantallas.MenuScreen
-import com.example.ryuu_fit.pantallas.PlanchaAntebrazos
-import com.example.ryuu_fit.pantallas.PlanchaFrontal
-import com.example.ryuu_fit.pantallas.PuenteGluteo
-import com.example.ryuu_fit.pantallas.RemoToalla
-import com.example.ryuu_fit.pantallas.Respiracion
-import com.example.ryuu_fit.pantallas.SentadillaExten
-import com.example.ryuu_fit.pantallas.SentadillasApoyo
-import com.example.ryuu_fit.pantallas.SentadillasParciales
-import com.example.ryuu_fit.pantallas.SupermanTumbado
-import com.example.ryuu_fit.pantallas.lunes
-import com.example.ryuu_fit.pantallas.martes
-import com.example.ryuu_fit.pantallas.miercoles
-import com.example.ryuu_fit.pantallas.sabado
-import com.example.ryuu_fit.pantallas.viernes
+import com.example.ryuu_fit.pantallas.ElasticidadScreen
+import com.example.ryuu_fit.pantallas.FuerzaScreen
+import com.example.ryuu_fit.pantallas.ResistenciaScreen
+import com.example.ryuu_fit.pantallas.RutinaScreen
+
 
 //Rutas Jhon Quenan
 import com.example.ryuu_fit.pantallas.DietaDesayuno
@@ -53,6 +60,7 @@ import com.example.ryuu_fit.pantallas.DietaMerienda
 import com.example.ryuu_fit.pantallas.DietaAlmuerzo
 import com.example.ryuu_fit.pantallas.DietaCena
 import com.example.ryuu_fit.pantallas.DietaSnack
+
 
 
 //import com.example.ryuu_fit.pantallas.(nombre de la funcion)
@@ -203,6 +211,54 @@ fun NavegacionApp() {
 
 
         //Partes Julian
+
+        composable(route = AppPantallas.Rutina.ruta) {
+            RutinaScreen(
+                onSalirClick = {
+                    navController.navigateUp()
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Cardio.ruta) {
+            CardioScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Fuerza.ruta) {
+            FuerzaScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Resistencia.ruta) {
+            ResistenciaScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = AppPantallas.Elasticidad.ruta) {
+            ElasticidadScreen(
+                onFinalizarClick = {
+                    navController.navigate(AppPantallas.Home.ruta) {
+                        popUpTo(AppPantallas.Rutina.ruta) { inclusive = true }
+                    }
+                }
+            )
+        }
 
         composable(route = AppPantallas.Nutricion.ruta) {
             Nutricion(

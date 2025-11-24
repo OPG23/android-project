@@ -16,15 +16,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuScreen(
-    onSalirClick: () -> Unit,
-    onNavigateTo: (String) -> Unit
-) {
+    onSalirClick: (() -> Unit),
+    onNavigateTo: ((String) -> Unit)
+){
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Black
@@ -56,7 +57,7 @@ fun MenuScreen(
             )
 
             // Datos del usuario
-            UserDataCard("Peso Actual - 54 Kg   Peso Deseado 63 Kg")
+            UserDataCard("Peso Actual - 54 Kg Peso Deseado 63 Kg")
             Spacer(modifier = Modifier.height(8.dp))
             UserDataCard("Días semanales para ejercitarse: L M M J V S")
             Spacer(modifier = Modifier.height(8.dp))
@@ -101,7 +102,7 @@ fun MenuScreen(
             // Botón Plan alimenticio
             Card(
                 onClick = {
-                    onNavigateTo(AppPantallas.Nutricion.ruta)
+                    //onNavigateTo(AppPantallas.Nutricion.ruta)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
