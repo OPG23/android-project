@@ -15,9 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.ryuu_fit.R
-import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Se importa para poder usar las rutas definidas
 
 // Modelo de datos para los ejercicios de cardio
 data class EjercicioCardio(
@@ -29,12 +27,9 @@ data class EjercicioCardio(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardioScreen(
-    navController: NavController? = null, // Permite navegar entre pantallas
-    dia: String = "Cardio",
-    rutina: String = "Cardio y Resistencia",
-    onFinalizarClick: (() -> Unit)? = null // ✅ agregado para compatibilidad con NavigationApp
+    onFinalizarClick: () -> Unit
 ) {
-// Lista de ejercicios (solo ejercicios sin equipo)
+    // Lista de ejercicios (solo ejercicios sin equipo)
     val ejercicios = listOf(
         EjercicioCardio("Jumping Jacks", "3×45 seg", R.drawable.jumping),
         EjercicioCardio("Burpees", "4×15 rep", R.drawable.burpees),
@@ -43,7 +38,7 @@ fun CardioScreen(
         EjercicioCardio("Sprints en el Lugar", "4×30 seg", R.drawable.sprints)
     )
 
-// Estado de los checkboxes (para marcar ejercicios completados)
+    // Estado de los checkboxes (para marcar ejercicios completados)
     val estados = remember { mutableStateListOf(*Array(ejercicios.size) { false }) }
 
     Scaffold(
@@ -51,14 +46,13 @@ fun CardioScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = dia,
+                        text = "Cardio",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
-                    // 🔙 Botón para regresar a la pantalla anterior
-                    IconButton(onClick = { navController?.popBackStack() }) {
+                    IconButton(onClick = { onFinalizarClick() }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -71,9 +65,8 @@ fun CardioScreen(
         },
         containerColor = Color.Black,
         bottomBar = {
-            // ✅ BOTÓN FINALIZAR ENTRENAMIENTO corregido
             Button(
-                onClick = { onFinalizarClick?.invoke() ?: navController?.navigate(AppPantallas.Home.ruta) },
+                onClick = { onFinalizarClick() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = Color.Black
@@ -97,7 +90,7 @@ fun CardioScreen(
             // Encabezado
             item {
                 Text(
-                    text = "Rutina de $rutina",
+                    text = "Rutina de Cardio y Resistencia",
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -171,12 +164,10 @@ fun CardioScreen(
             }
         }
     }
-
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CardioPreview() {
-    CardioScreen(dia = "Cardio", rutina = "Cardio y Resistencia")
+    CardioScreen(onFinalizarClick = {})
 }

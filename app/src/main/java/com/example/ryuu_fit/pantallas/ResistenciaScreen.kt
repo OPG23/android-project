@@ -15,9 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.ryuu_fit.R
-import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Import necesaria para usar rutas
 
 // Modelo de datos para los ejercicios de resistencia
 data class EjercicioResistencia(
@@ -29,10 +27,7 @@ data class EjercicioResistencia(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResistenciaScreen(
-    navController: NavController? = null,
-    dia: String = "Resistencia",
-    rutina: String = "Entrenamiento de Resistencia en Casa",
-    onFinalizarClick: (() -> Unit)? = null // ✅ Parámetro agregado
+    onFinalizarClick: () -> Unit
 ) {
     // Lista de ejercicios SIN EQUIPO
     val ejercicios = listOf(
@@ -51,14 +46,13 @@ fun ResistenciaScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = dia,
+                        text = "Resistencia",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
-                    // 🔙 Botón para regresar atrás
-                    IconButton(onClick = { navController?.popBackStack() }) {
+                    IconButton(onClick = { onFinalizarClick() }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -71,14 +65,8 @@ fun ResistenciaScreen(
         },
         containerColor = Color.Black,
         bottomBar = {
-            // ✅ BOTÓN FINALIZAR ENTRENAMIENTO → redirige a Home
             Button(
-                onClick = {
-                    // Invoca la función pasada o navega al Home por defecto
-                    onFinalizarClick?.invoke() ?: navController?.navigate(AppPantallas.Home.ruta) {
-                        popUpTo(AppPantallas.Home.ruta) { inclusive = true }
-                    }
-                },
+                onClick = { onFinalizarClick() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = Color.Black
@@ -102,7 +90,7 @@ fun ResistenciaScreen(
             // Encabezado
             item {
                 Text(
-                    text = "Rutina de $rutina",
+                    text = "Rutina de Entrenamiento de Resistencia en Casa",
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -181,5 +169,5 @@ fun ResistenciaScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ResistenciaPreview() {
-    ResistenciaScreen(dia = "Resistencia", rutina = "Entrenamiento de Resistencia en Casa")
+    ResistenciaScreen(onFinalizarClick = {})
 }

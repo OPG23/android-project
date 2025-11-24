@@ -15,9 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.ryuu_fit.R
-import com.example.ryuu_fit.Navegacion.AppPantallas
 
 data class EjercicioElasticidad(
     val nombre: String,
@@ -28,11 +26,7 @@ data class EjercicioElasticidad(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ElasticidadScreen(
-
-    navController: NavController? = null,
-    dia: String = "Elasticidad",
-    rutina: String = "Elasticidad y Movilidad",
-    onFinalizarClick: (() -> Unit)? = null //
+    onFinalizarClick: () -> Unit
 ) {
     val ejercicios = listOf(
         EjercicioElasticidad("Estiramiento de Espalda y Brazos", "3×30 seg", R.drawable.elasticidad_espalda),
@@ -50,13 +44,13 @@ fun ElasticidadScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = dia,
+                        text = "Elasticidad",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController?.navigate(AppPantallas.Home.ruta) }) {
+                    IconButton(onClick = { onFinalizarClick() }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -70,7 +64,7 @@ fun ElasticidadScreen(
         containerColor = Color.Black,
         bottomBar = {
             Button(
-                onClick = { onFinalizarClick?.invoke() ?: navController?.navigate(AppPantallas.Home.ruta) },
+                onClick = { onFinalizarClick() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = Color.Black
@@ -93,7 +87,7 @@ fun ElasticidadScreen(
         ) {
             item {
                 Text(
-                    text = "Rutina de $rutina",
+                    text = "Rutina de Elasticidad y Movilidad",
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -171,5 +165,5 @@ fun ElasticidadScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ElasticidadPreview() {
-    ElasticidadScreen()
+    ElasticidadScreen(onFinalizarClick = {})
 }

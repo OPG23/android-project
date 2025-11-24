@@ -281,6 +281,15 @@ fun NavegacionApp() {
                 onNavigateTo = { ruta -> navController.navigate(ruta) }
             )
         }
+        // Reemplaza esta sección en tu NavegacionApp.kt
+
+        composable(route = AppPantallas.Menu.ruta) {
+            MenuScreen(
+                onSalirClick = { navController.navigateUp() },
+                onNavigateTo = { ruta -> navController.navigate(ruta) },
+                testViewModel = testViewModel  // 🔥 Pasar el ViewModel compartido
+            )
+        }
 
         // Jhon quenan
         composable(route = AppPantallas.Menu.ruta) {
