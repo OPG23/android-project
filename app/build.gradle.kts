@@ -60,7 +60,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore-ktx:25.1.4")
     implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
-    implementation("com.google.firebase:firebase-storage-ktx:20.1.0")
+    implementation("com.google.firebase:firebase-storage-ktx:21.0.2")
     implementation(libs.firebase.storage)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.credentials)
