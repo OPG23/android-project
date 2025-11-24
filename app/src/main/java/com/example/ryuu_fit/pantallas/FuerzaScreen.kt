@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.ryuu_fit.R
-import com.example.ryuu_fit.Navegacion.AppPantallas // ✅ Importación para usar rutas del sistema de navegación
 
 // Modelo de datos para los ejercicios de fuerza
 data class EjercicioFuerza(
@@ -29,10 +29,7 @@ data class EjercicioFuerza(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FuerzaScreen(
-    navController: NavController? = null,
-    dia: String = "Fuerza",
-    rutina: String = "Entrenamiento de Fuerza en Casa",
-    onFinalizarClick: (() -> Unit)? = null // ✅ agregado
+    onFinalizarClick: () -> Unit
 ) {
     // Lista de ejercicios SIN EQUIPO
     val ejercicios = listOf(
@@ -51,14 +48,13 @@ fun FuerzaScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = dia,
+                        text = "Fuerza",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
-                    // 🔙 Botón para volver atrás
-                    IconButton(onClick = { navController?.popBackStack() }) {
+                    IconButton(onClick = { onFinalizarClick() }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_backarrow),
                             contentDescription = "Volver atrás",
@@ -71,14 +67,8 @@ fun FuerzaScreen(
         },
         containerColor = Color.Black,
         bottomBar = {
-            // ✅ BOTÓN FINALIZAR ENTRENAMIENTO
             Button(
-                onClick = {
-                    // Ejecuta el callback si existe, o navega a Home
-                    onFinalizarClick?.invoke() ?: navController?.navigate(AppPantallas.Home.ruta) {
-                        popUpTo(AppPantallas.Home.ruta) { inclusive = true }
-                    }
-                },
+                onClick = { onFinalizarClick() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = Color.Black
@@ -102,7 +92,7 @@ fun FuerzaScreen(
             // Encabezado de la pantalla
             item {
                 Text(
-                    text = "Rutina de $rutina",
+                    text = "Rutina de Entrenamiento de Fuerza en Casa",
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -181,5 +171,5 @@ fun FuerzaScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun FuerzaPreview() {
-    FuerzaScreen(dia = "Fuerza", rutina = "Entrenamiento de Fuerza en Casa")
+    FuerzaScreen(onFinalizarClick = {})
 }

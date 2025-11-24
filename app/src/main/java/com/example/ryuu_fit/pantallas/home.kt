@@ -30,7 +30,7 @@ fun HomeScreen(
             NavigationBar(containerColor = Color.White) {
                 NavigationBarItem(
                     selected = true,
-                    onClick = { navController.popBackStack() },
+                    onClick = { /* Ya estamos en Home */ },
                     icon = {
                         Image(
                             painter = painterResource(id = R.drawable.ic_home),
@@ -51,18 +51,6 @@ fun HomeScreen(
                         )
                     },
                     label = { Text("Rutinas") }
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { navController.popBackStack() },
-                    icon = {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_notificaciones),
-                            contentDescription = "Notificaciones",
-                            modifier = Modifier.size(24.dp)
-                        )
-                    },
-                    label = { Text("Alertas") }
                 )
                 NavigationBarItem(
                     selected = false,
@@ -87,50 +75,27 @@ fun HomeScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Barra de búsqueda
-            OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                placeholder = { Text("Buscar", color = Color.Gray) },
-                leadingIcon = {
-                    Image(
-                        painter = painterResource(R.drawable.ryuu_fit_image_bgrm),
-                        contentDescription = "Buscar",
-                        modifier = Modifier.size(24.dp)
-                    )
-                },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White
-                )
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Chips
+            // Chips (sin el de Avances)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                FilterChip("Avances", onClick = { navController.navigate(AppPantallas.DetallesEx.ruta) })
                 FilterChip("Rutinas", onClick = { navController.navigate(AppPantallas.TrainingWeek.ruta) })
                 FilterChip("Nutrición", onClick = { navController.navigate(AppPantallas.Nutricion.ruta) })
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Logo
             Image(
                 painter = painterResource(id = R.drawable.ryuu_fit_image_bgrm),
                 contentDescription = "Logo",
-                modifier = Modifier.size(180.dp)
+                modifier = Modifier.size(200.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            // Fila de categorías - 🔥 AQUÍ SE CONECTAN LOS BOTONES
+            // Fila de categorías
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
@@ -157,7 +122,7 @@ fun HomeScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Opciones con imágenes
             Row(
@@ -189,8 +154,8 @@ fun FilterChip(text: String, onClick: () -> Unit = {}) {
         Text(
             text = text,
             color = Color.White,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-            fontSize = 14.sp
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            fontSize = 16.sp
         )
     }
 }

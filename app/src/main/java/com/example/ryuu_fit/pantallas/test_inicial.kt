@@ -20,43 +20,32 @@ import androidx.navigation.NavController
 import com.example.ryuu_fit.R
 import com.example.ryuu_fit.ViewModel.TestViewModel
 
-// --------------------
-// MODELO PREGUNTA
-// --------------------
-
 data class Pregunta(
     val label: String,
-    val opciones: List<String>
+    val opciones: List<String>,
+    val campo: String
 )
 
-// --------------------
-// LISTA DE PREGUNTAS
-// --------------------
-
 val preguntasParte1 = listOf(
-    Pregunta("Edad", (15..100).map { "$it años" }),
-    Pregunta("Altura (Cm)", (100..200).map { "$it cm" }),
-    Pregunta("Peso (Kg)", (30..200).map { "$it kg" }),
-    Pregunta("Género", listOf("Masculino", "Femenino", "Otro")),
-    Pregunta("Complexión corporal", listOf("Delgada", "Media", "Musculosa", "Robusta")),
-    Pregunta("Frecuencia de actividad física", listOf("Nunca", "1-2 veces/semana", "3-5 veces/semana", "Diario")),
-    Pregunta("Nivel de condición física", listOf("Bajo", "Medio", "Alto")),
-    Pregunta("Objetivo principal", listOf("Bajar de peso", "Ganar masa muscular", "Mantenerme en forma", "Otro")),
-    Pregunta("Qué tiempo diario entrenarías", listOf("15 min", "30 min", "45 min", "1h", "Más de 1h")),
-    Pregunta("Cuántos días a la semana entrenarías", (1..6).map { "$it días" }),
-    Pregunta("Tienes restricciones alimenticias", listOf("Ninguna", "Vegetariano", "Vegano", "Sin gluten", "Otra")),
-    Pregunta("Frecuencia consumo de comidas rápidas", listOf("Nunca", "1 vez/semana", "2-3 veces/semana", "Más de 3 veces/semana"))
+    Pregunta("Edad", (15..100).map { "$it años" }, "edad"),
+    Pregunta("Altura (Cm)", (100..200).map { "$it cm" }, "altura"),
+    Pregunta("Peso (Kg)", (30..200).map { "$it kg" }, "peso"),
+    Pregunta("Género", listOf("Masculino", "Femenino", "Otro"), "genero"),
+    Pregunta("Complexión corporal", listOf("Delgada", "Media", "Musculosa", "Robusta"), "complexion"),
+    Pregunta("Frecuencia de actividad física", listOf("Nunca", "1-2 veces/semana", "3-5 veces/semana", "Diario"), "frecuenciaActividad"),
+    Pregunta("Nivel de condición física", listOf("Bajo", "Medio", "Alto"), "nivelCondicion"),
+    Pregunta("Objetivo principal", listOf("Bajar de peso", "Ganar masa muscular", "Mantenerme en forma", "Otro"), "objetivoPrincipal"),
+    Pregunta("Qué tiempo diario entrenarías", listOf("15 min", "30 min", "45 min", "1h", "Más de 1h"), "tiempoDisponible"),
+    Pregunta("Cuántos días a la semana entrenarías", (1..6).map { "$it días" }, "diasEntreno"),
+    Pregunta("Tienes restricciones alimenticias", listOf("Ninguna", "Vegetariano", "Vegano", "Sin gluten", "Otra"), "restriccionesAlimenticias"),
+    Pregunta("Frecuencia consumo de comidas rápidas", listOf("Nunca", "1 vez/semana", "2-3 veces/semana", "Más de 3 veces/semana"), "frecuenciaComidaRapida")
 )
 
 val preguntasParte2 = listOf(
-    Pregunta("Cuántas horas sueles dormir", (4..12).map { "$it horas" }),
-    Pregunta("Qué te motiva a entrenar", listOf("Salud", "Estética", "Rendimiento deportivo", "Otro")),
-    Pregunta("Quieres recibir notificaciones", listOf("Sí", "No"))
+    Pregunta("Cuántas horas sueles dormir", (4..12).map { "$it horas" }, "horasSueno"),
+    Pregunta("Qué te motiva a entrenar", listOf("Salud", "Estética", "Rendimiento deportivo", "Otro"), "motivacion"),
+    Pregunta("Quieres recibir notificaciones", listOf("Sí", "No"), "notificaciones")
 )
-
-// --------------------------
-// PANTALLA DEL TEST INICIAL
-// --------------------------
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -109,35 +98,25 @@ fun TestInicialScreen(navController: NavController, testViewModel: TestViewModel
                 .padding(16.dp)
         ) {
 
-            // -----------------------------
-            // PARTE 1
-            // -----------------------------
             if (parte == 1) {
-
                 preguntasParte1.forEach { pregunta ->
-
                     DropdownField(
                         label = pregunta.label,
                         options = pregunta.opciones,
                         onValueSelected = { value ->
-
-                            // Detectamos la pregunta de los días
-                            if (pregunta.label == "Cuántos días a la semana entrenarías") {
-
-                                val dias = value.split(" ")[0].toInt() // "4 días" → 4
-                                testViewModel.setDiasEntreno(dias)
-                            }
+                            procesarRespuesta(pregunta.campo, value, testViewModel)
                         }
                     )
                 }
-
             } else {
-
-                // -----------------------------
-                // PARTE 2
-                // -----------------------------
                 preguntasParte2.forEach { pregunta ->
-                    DropdownField(pregunta.label, pregunta.opciones)
+                    DropdownField(
+                        label = pregunta.label,
+                        options = pregunta.opciones,
+                        onValueSelected = { value ->
+                            procesarRespuesta(pregunta.campo, value, testViewModel)
+                        }
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -161,9 +140,39 @@ fun TestInicialScreen(navController: NavController, testViewModel: TestViewModel
     }
 }
 
-// --------------------------
-// DROPDOWN COMPONENTE
-// --------------------------
+// Función para procesar y guardar respuestas
+fun procesarRespuesta(campo: String, valor: String, viewModel: TestViewModel) {
+    when (campo) {
+        "edad" -> {
+            val edad = valor.split(" ")[0].toIntOrNull()
+            edad?.let { viewModel.actualizarDato("edad", it) }
+        }
+        "altura" -> {
+            val altura = valor.split(" ")[0].toIntOrNull()
+            altura?.let { viewModel.actualizarDato("altura", it) }
+        }
+        "peso" -> {
+            val peso = valor.split(" ")[0].toIntOrNull()
+            peso?.let { viewModel.actualizarDato("peso", it) }
+        }
+        "diasEntreno" -> {
+            val dias = valor.split(" ")[0].toIntOrNull()
+            dias?.let { viewModel.actualizarDato("diasEntreno", it) }
+        }
+        "horasSueno" -> {
+            val horas = valor.split(" ")[0].toIntOrNull()
+            horas?.let { viewModel.actualizarDato("horasSueno", it) }
+        }
+        "notificaciones" -> {
+            val notif = valor == "Sí"
+            viewModel.actualizarDato("notificaciones", notif)
+        }
+        else -> {
+            // Para strings directos
+            viewModel.actualizarDato(campo, valor)
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -172,40 +181,44 @@ fun DropdownField(
     options: List<String>,
     onValueSelected: (String) -> Unit = {}
 ) {
-
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf("seleccione el rango") }
+    var selectedText by remember { mutableStateOf("Seleccione una opción") }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded }
     ) {
-
         OutlinedTextField(
             value = selectedText,
             onValueChange = {},
             readOnly = true,
             label = { Text(label, color = Color.White) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.menuAnchor().fillMaxWidth()
+            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = Color.DarkGray,
+                focusedContainerColor = Color.DarkGray,
+                unfocusedTextColor = Color.White,
+                focusedTextColor = Color.White
+            )
         )
 
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-
             options.forEach { option ->
-
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {
                         selectedText = option
-                        onValueSelected(option)   // 🔥 ENVÍA EL VALOR SELECCIONADO
+                        onValueSelected(option)
                         expanded = false
                     }
                 )
             }
         }
     }
+
+    Spacer(modifier = Modifier.height(8.dp))
 }
