@@ -19,22 +19,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.ryuu_fit.Navegacion.AppPantallas
 import com.example.ryuu_fit.R
-//
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
-
 ) {
     Scaffold(
         bottomBar = {
             NavigationBar(containerColor = Color.White) {
                 NavigationBarItem(
                     selected = true,
-                    onClick = { navController.popBackStack() }, // navController.navigate(AppPantallas.Nutricion.ruta)
+                    onClick = { navController.popBackStack() },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_home), // ic_home
+                            painter = painterResource(id = R.drawable.ic_home),
                             contentDescription = "Home",
                             modifier = Modifier.size(24.dp)
                         )
@@ -43,10 +42,10 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("trainingWeek") }, // AppPantallas.TrainingWeek.ruta
+                    onClick = { navController.navigate(AppPantallas.TrainingWeek.ruta) },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_rutinas), //ic_rutinas
+                            painter = painterResource(id = R.drawable.ic_rutinas),
                             contentDescription = "Rutinas",
                             modifier = Modifier.size(24.dp)
                         )
@@ -55,10 +54,10 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.popBackStack() }, //navController.popBackStack() navController.navigate("detallesEx")
+                    onClick = { navController.popBackStack() },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_notificaciones),//ic_notificaciones
+                            painter = painterResource(id = R.drawable.ic_notificaciones),
                             contentDescription = "Notificaciones",
                             modifier = Modifier.size(24.dp)
                         )
@@ -67,10 +66,10 @@ fun HomeScreen(
                 )
                 NavigationBarItem(
                     selected = false,
-                    onClick = { navController.navigate("menu") }, //AppPantallas.Menu.ruta
+                    onClick = { navController.navigate(AppPantallas.Menu.ruta) },
                     icon = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_perfil), //ic_perfil
+                            painter = painterResource(id = R.drawable.ic_perfil),
                             contentDescription = "Perfil",
                             modifier = Modifier.size(24.dp)
                         )
@@ -115,16 +114,15 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                FilterChip("Avances", onClick = {navController.navigate("detallesEx")}) //AppPantallas.DetallesEx.ruta
-                FilterChip("Rutinas", onClick = {navController.navigate("trainingWeek")}) //AppPantallas.TrainingWeek.ruta
-                FilterChip("Nutrición", onClick = {navController.navigate("nutricion")}) //AppPantallas.Nutricion.ruta
+                FilterChip("Avances", onClick = { navController.navigate(AppPantallas.DetallesEx.ruta) })
+                FilterChip("Rutinas", onClick = { navController.navigate(AppPantallas.TrainingWeek.ruta) })
+                FilterChip("Nutrición", onClick = { navController.navigate(AppPantallas.Nutricion.ruta) })
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Logo
             Image(
-
                 painter = painterResource(id = R.drawable.ryuu_fit_image_bgrm),
                 contentDescription = "Logo",
                 modifier = Modifier.size(180.dp)
@@ -132,15 +130,31 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Fila de categorías
+            // Fila de categorías - 🔥 AQUÍ SE CONECTAN LOS BOTONES
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                CategoryIcon(R.drawable.ic_cardio, "Cardio")
-                CategoryIcon(R.drawable.ic_fuerza, "Fuerza")
-                CategoryIcon(R.drawable.ic_resistencia, "Resistencia")
-                CategoryIcon(R.drawable.ic_elasticidad, "Elasticidad")
+                CategoryIcon(
+                    iconRes = R.drawable.ic_cardio,
+                    label = "Cardio",
+                    onClick = { navController.navigate(AppPantallas.Cardio.ruta) }
+                )
+                CategoryIcon(
+                    iconRes = R.drawable.ic_fuerza,
+                    label = "Fuerza",
+                    onClick = { navController.navigate(AppPantallas.Fuerza.ruta) }
+                )
+                CategoryIcon(
+                    iconRes = R.drawable.ic_resistencia,
+                    label = "Resistencia",
+                    onClick = { navController.navigate(AppPantallas.Resistencia.ruta) }
+                )
+                CategoryIcon(
+                    iconRes = R.drawable.ic_elasticidad,
+                    label = "Elasticidad",
+                    onClick = { navController.navigate(AppPantallas.Elasticidad.ruta) }
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -150,9 +164,16 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                OptionCard(R.drawable.ic_actuinfo, "Actualización de información", onClick = {navController.navigate("test")} ) //AppPantallas.Test.ruta
-                OptionCard(R.drawable.ic_opcidietas, "Opciones de dietas", onClick = {navController.navigate("nutricion")}) //AppPantallas.Nutricion.ruta
-                //Button(onClick = {navController.navigate(AppPantallas.Menu.ruta)}) { }
+                OptionCard(
+                    R.drawable.ic_actuinfo,
+                    "Actualización de información",
+                    onClick = { navController.navigate(AppPantallas.Test.ruta) }
+                )
+                OptionCard(
+                    R.drawable.ic_opcidietas,
+                    "Opciones de dietas",
+                    onClick = { navController.navigate(AppPantallas.Nutricion.ruta) }
+                )
             }
         }
     }
@@ -204,14 +225,13 @@ fun CategoryIcon(iconRes: Int, label: String, onClick: () -> Unit = {}) {
     }
 }
 
-
 @Composable
 fun OptionCard(imageRes: Int, text: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .width(150.dp)
             .background(Color.DarkGray, RoundedCornerShape(8.dp))
-            .clickable { onClick() } // <- aquí lo ejecutamos
+            .clickable { onClick() }
     ) {
         Image(
             painter = painterResource(id = imageRes),
@@ -233,13 +253,8 @@ fun OptionCard(imageRes: Int, text: String, onClick: () -> Unit) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    // Controlador de navegación falso solo para previsualizar
     val fakeNavController = androidx.navigation.compose.rememberNavController()
-
-    // Llamamos la pantalla dentro del tema de tu app
     com.example.ryuu_fit.ui.theme.RYUU_FITTheme {
         HomeScreen(navController = fakeNavController)
     }
 }
-
-
